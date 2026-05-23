@@ -66,6 +66,3 @@ bash run_mesc_inference.sh
 
 You can edit `run_mesc_inference.sh` to change the dataset, LLM backbone, adapter checkpoint, policy path, and consultation parameters.
 
-## Privacy Note
-
-Before releasing the repository, please ensure that any private clinical records, personal identifiers, server-specific paths, and unnecessary generated outputs are removed. Public benchmark data should follow the corresponding dataset licenses and privacy requirements.
