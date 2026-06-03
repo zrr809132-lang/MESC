@@ -8,7 +8,6 @@ from llm_backend import BTP, load_model_and_tokenizer
 from tqdm import tqdm
 import random
 
-# 主函数
 def main():
     preprocess_dataset("DXY")
     preprocess_dataset("GMD")
@@ -17,13 +16,11 @@ def main():
     preprocess_turn_dataset(dataset_name="GMD", device="cuda:0")
     preprocess_turn_dataset(dataset_name="CMD", device="cuda:0")
     
-# 加载数据集
 def load_dataset(dataset_name: str, stage: str):
     with open(f"./data/{dataset_name}/{stage}.json", "r", encoding="utf-8") as dataset_file:
         dataset = json.load(dataset_file)
     return dataset
 
-# 获取疾病的临床表现知识
 def get_disease_knowledge(dataset_name: str, candidate_diseases: list):
     disease_knowledge = {candidate_disease: {} for candidate_disease in candidate_diseases}
     with open(f"./data/{dataset_name}/empirical_knowledge.json", "r", encoding="utf-8") as empirical_knowledge_file:
