@@ -17,13 +17,13 @@ class MemoryAgent:
         self.texts = [record["semantic_query"] for record in self.records]
 
         print("[Memory Agent] 正在加载 Embedding 模型...")
-        # 第一次运行会自动下载，建议使用 BGE 模型，极小且准
+        
         self.embedder = SentenceTransformer("BAAI/bge-small-zh-v1.5")
 
         print("[Memory Agent] 正在向量化历史经验...")
         self.embeddings = self.embedder.encode(self.texts, normalize_embeddings=True)
 
-        # 构建 FAISS 索引
+        
         dimension = self.embeddings.shape[1]
         self.index = faiss.IndexFlatIP(dimension)
         self.index.add(np.array(self.embeddings).astype("float32"))
@@ -51,12 +51,12 @@ class MemoryAgent:
         """
         query_text = self._build_query_text(current_symptoms_dict)
         if not query_text:
-            return None  # 没症状则不检索
+            return None  
 
         query_vec = self.embedder.encode(
             [query_text], normalize_embeddings=True
         ).astype("float32")
-        similarities, indices = self.index.search(query_vec, 1)  # 只找最像的 1 个
+        similarities, indices = self.index.search(query_vec, 1)  
 
         sim_score = similarities[0][0]
         best_match_index = int(indices[0][0])
