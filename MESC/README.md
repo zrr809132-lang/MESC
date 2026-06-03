@@ -1,6 +1,4 @@
-# MESC
-
-Memory-Enhanced Specialist Consultation (MESC) for difficulty-aware medical diagnosis with large language models.
+# MESC: Memory-Enhanced Specialist Consultation for Efficient LLM-Based Medical Diagnosis
 
 ## Introduction
 
