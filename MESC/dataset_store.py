@@ -161,7 +161,7 @@ def preprocess_dataset(dataset_name, seed):
         train_dataset, dev_dataset = train_test_split(
             train_dataset, 
             test_size=(len(test_dataset) / len(train_dataset)) * dev_ratio[dataset_name], 
-            stratify=[data["disease_label"] for data in train_dataset],  # 提取每个样本的疾病标签，作为分层依据
+            stratify=[data["disease_label"] for data in train_dataset],  
             random_state=seed
         )
     else:
@@ -201,7 +201,7 @@ def preprocess_turn_dataset(dataset_name, device="cuda:0"):
         new_symptoms = {symptom: existence for symptom, existence in data["all_symptoms"].items() if symptom not in data["self_report"]}
         
         min_len = 10
-        if len(data["all_symptoms"]) < min_len:  # 如果原数据集的症状记录过少，则根据知识补充症状。
+        if len(data["all_symptoms"]) < min_len:  
             n = min_len - len(data["all_symptoms"])
             random.seed(42)
             empirical_knowledge = disease_knowledge[disease_label]["empirical_knowledge"]
