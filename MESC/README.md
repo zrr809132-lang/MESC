@@ -8,13 +8,7 @@ Medical consultation with large language models often applies the same inquiry w
 
 MESC follows two complementary paths. For typical cases, it first retrieves similar structured case memories, verifies key symptoms, and reuses an efficient inquiry path for fast diagnosis. For atypical or uncertain cases, it routes the patient to multi-specialist collaborative inquiry, where specialist agents ask targeted symptom questions and update disease confidence with collected evidence.
 
-<p align="center">
-  <img src="mesc_framework.png" width="900">
-</p>
 
-<p align="center">
-  <b>Figure:</b> Overview of the MESC framework. Memory-first routing quickly handles typical cases and supports multi-specialist inquiry for uncertain cases.
-</p>
 
 ## Requirements
 
