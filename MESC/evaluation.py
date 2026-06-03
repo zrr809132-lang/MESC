@@ -25,9 +25,9 @@ MEMORY_TRIGGER_BUDGET = 3
 COMPACT_SPC_INTERACTIONS = True
 _MEMORY_AGENT_PATH = None
 
-# 得到标签疾病的排名
+
 def get_disease_label_rank(diagnostic_confidence: dict, disease_label: str):
-    sorted_diagnostic_confidence = dict(sorted(diagnostic_confidence.items(), key=lambda item: item[1], reverse=True))  # 将诊断置信度按从高到低排序
+    sorted_diagnostic_confidence = dict(sorted(diagnostic_confidence.items(), key=lambda item: item[1], reverse=True))  
     rank = 0
     pre_confidence = 1
     for disease, confidence in sorted_diagnostic_confidence.items():
@@ -533,8 +533,8 @@ def apply_memory_shortcuts(observations, eval_envs, results, progress_bar, memor
 
     return observations, intercepted_any
 
-# 评估
-def performance_eval(llm_name, dataset_name, exp_name, stage, timestep, eval_envs, policy, settings={}):  # 验证和测试时仍采用多环境设置
+
+def performance_eval(llm_name, dataset_name, exp_name, stage, timestep, eval_envs, policy, settings={}):  
     results = {
         "timestep": timestep,
         "metrics": {
@@ -554,12 +554,12 @@ def performance_eval(llm_name, dataset_name, exp_name, stage, timestep, eval_env
     }
     start_time = time.time()
     reset_llm_usage()
-    # 重置数据索引和计数器
+   
     for env in eval_envs.envs:
         env.sample_idx = -1
         env.data_count = 0
-    # 推理
-    with th.no_grad():  # 推理时不计算梯度
+   
+    with th.no_grad():  
         progress_bar = tqdm(total=len(eval_envs.envs[0].dataset), desc=f"{'验证' if stage == 'dev' else '测试'}-{timestep}")
         memory_agent = None
         if stage == "test":
@@ -593,8 +593,8 @@ def performance_eval(llm_name, dataset_name, exp_name, stage, timestep, eval_env
                 break
 
             observations = th.from_numpy(observations).float().to(policy.device)
-            actions, values, log_probs = policy.forward(obs=observations, exp_name=exp_name, stage=stage)  # policy_info_list记录的是每轮的动作选择过程
-            observations, rewards, done_list, env_info_list  = eval_envs.step(actions)  # env_info_list记录的是当前所有轮次的状态
+            actions, values, log_probs = policy.forward(obs=observations, exp_name=exp_name, stage=stage)  
+            observations, rewards, done_list, env_info_list  = eval_envs.step(actions)  
             manual_done_list = [False for _ in eval_envs.envs]
             for i in range(len(eval_envs.envs)):
                 batch_symptoms = policy.decision_info[i].get("specialist_batch_symptoms") or []
@@ -718,10 +718,10 @@ def performance_eval(llm_name, dataset_name, exp_name, stage, timestep, eval_env
                         next_observation, _ = eval_envs.envs[i].reset()
                         observations[i] = next_observation
             if any(done_list):
-                save_results(llm_name, dataset_name, exp_name, stage, timestep, results, settings)  # 保存最新结果
-            all_completed = all([eval_env.is_eval_env_completed() for eval_env in eval_envs.envs])  # 指示是否所有环境都模拟完了分配的数据
+                save_results(llm_name, dataset_name, exp_name, stage, timestep, results, settings) 
+            all_completed = all([eval_env.is_eval_env_completed() for eval_env in eval_envs.envs])  
         progress_bar.close()
-    # 计算评估指标
+    
     metrics = calculate_metrics(results["records"])
     results["metrics"]["Acc_wo_iq"] = metrics[0]
     results["metrics"]["Acc"] = metrics[1]
@@ -748,7 +748,7 @@ def performance_eval(llm_name, dataset_name, exp_name, stage, timestep, eval_env
         1,
     )
     results["metrics"]["LLM_usage"] = llm_usage
-    save_results(llm_name, dataset_name, exp_name, stage, timestep, results, settings)  # 保存当前结果
+    save_results(llm_name, dataset_name, exp_name, stage, timestep, results, settings)  
     return results["metrics"]
 
 
@@ -1027,7 +1027,7 @@ def calc_f1(result_filepath):
         y_true.append(record["disease_label"])
         y_pred.append(list(record["interactions"][-1]["diagnostic_confidence"].keys())[0])
         
-    # 计算 Macro-F1 和 Micro-F1
+    
     macro_f1 = f1_score(y_true, y_pred, average='macro')
     micro_f1 = f1_score(y_true, y_pred, average='micro')
 
