@@ -71,7 +71,7 @@ def load_model_and_tokenizer(model_name, device="auto"):
     model_path = resolve_model_path(model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
     device_map = "auto" if device == "auto" else {"": device}
-    # 加载基础模型
+    
     model = AutoModelForCausalLM.from_pretrained(
         model_path, 
         trust_remote_code=True, 
@@ -82,7 +82,7 @@ def load_model_and_tokenizer(model_name, device="auto"):
     return model, tokenizer
 
 
-# 获取模型输出内容
+
 def get_model_output_content(model_name, model, tokenizer, prompt, do_sample=True, temperature=0.1, max_new_tokens=1024):
     generated_tokens, _ = get_model_outputs(
         model_name=model_name, 
