@@ -2,6 +2,20 @@
 
 Memory-Enhanced Specialist Consultation (MESC) for difficulty-aware medical diagnosis with large language models.
 
+## Introduction
+
+Medical consultation with large language models often applies the same inquiry workflow to all patient cases, which can lead to redundant symptom questions and unnecessary reasoning cost. MESC addresses this issue with a memory-enhanced specialist consultation framework that adapts the consultation process according to case familiarity and diagnostic uncertainty.
+
+MESC follows two complementary paths. For typical cases, it first retrieves similar structured case memories, verifies key symptoms, and reuses an efficient inquiry path for fast diagnosis. For atypical or uncertain cases, it routes the patient to multi-specialist collaborative inquiry, where specialist agents ask targeted symptom questions and update disease confidence with collected evidence.
+
+<p align="center">
+  <img src="docs/mesc_framework.png" width="900">
+</p>
+
+<p align="center">
+  <b>Figure:</b> Overview of the MESC framework. Memory-first routing quickly handles typical cases and supports multi-specialist inquiry for uncertain cases.
+</p>
+
 ## Requirements
 
 Install the required Python packages with:
