@@ -211,7 +211,7 @@ class SymptomInquiryActorCriticPolicy(ActorCriticPolicy):
             self.decision_info[env_id]["candidate_generation_mode"] = "specialist_only"
             return specialist_only_candidates
 
-        # 专科医生没有给出可用症状时，直接交给上层结束问诊。
+        
         self.decision_info[env_id]["candidate_generation_mode"] = (
             "specialist_only_empty_stop"
         )
