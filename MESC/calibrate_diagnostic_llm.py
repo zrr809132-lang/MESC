@@ -125,7 +125,7 @@ class ConfidenceTrainer(Trainer):
         false_id = BTP_SETTINGS[self.model_name]["False_token"]
         true_logits = target_logits[:, true_id]
         false_logits = target_logits[:, false_id]
-        temp = BTP_SETTINGS[self.model_name]["T"]  # T的值为浮点数
+        temp = BTP_SETTINGS[self.model_name]["T"]  
         confidence = torch.softmax(torch.stack([true_logits, false_logits], dim=-1)/temp, dim=-1)[:, 0]
         
         return confidence.view(batch_size, group_length)
