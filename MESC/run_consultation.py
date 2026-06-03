@@ -103,7 +103,7 @@ def main():
         settings={**best_settings, "time": formatted_time}
     )
 
-# 线性学习率调度器
+
 def linear_schedule(initial_value: float):
     return get_linear_fn(
         start=initial_value,
