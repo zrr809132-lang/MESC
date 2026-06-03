@@ -122,7 +122,6 @@ class PatientEnvironment(Env):
     def is_eval_env_completed(self):
         return self.data_count > len(self.sub_dataset)
     
-    # 初始化状态
     def reset(self, seed=None, options=None):
         self.sample_idx = (self.sample_idx + 1) % len(self.sub_dataset)
         self.data_count += 1
